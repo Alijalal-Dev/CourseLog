@@ -1,6 +1,6 @@
 <x-layouts.app>
     <!-- Header Section with Gradient Background -->
-    <div class="bg-gradient-to-br bg-sky-50 via-sky-50 to-sky-50 text-black">
+    <div class="bg-gradient-to-br bg-sky-200 via-sky-50 to-sky-50 text-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
                 <div>
