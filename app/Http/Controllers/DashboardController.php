@@ -11,33 +11,53 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        // Get courses statistics
-        $coursesStats = [
-            'total_coursess' => Course::count(),
-            'total_users' => User::count(),
-        ];
+        $softwarecourses=Course::where('category','software')->count();
+        $managementecourses=Course::where('category','Management')->count();
+        $developementcourses=Course::where('category','Development')->count();
+        $othercourses=Course::whereNotIn('category',['software','hardware','networking'])->count();
+        $totalcourses=Course::count();
 
+        $totalexpenses=DB::table('courses')->sum('payment');
 
-        // Get upcoming payments
-        $upcomingPayments = Course::where('payment_date', '>=', now())
-            ->where('payment_date', '<=', now()->addDays(30))
-            ->orderBy('payment_date')
-            ->get();
+        $softwareExpenses=DB::table('courses')
+        ->where('category', 'software')
+        ->sum('payment');
 
+        $managementExpenses=DB::table('courses')
+        ->where('category', 'Management')
+        ->sum('payment');
 
+        $developmentExpenses=DB::table('courses')
+        ->where('category', 'Development')
+        ->sum('payment');
 
+        $otherExpenses=DB::table('courses')
+        ->whereNotIn('category',['software','hardware','networking'])
+        ->sum('payment');
+
+       // dd($otherExpenses,$developmentExpenses,$managementExpenses,$softwareExpenses);
         // Get recent coursess
         $recentcoursess = Course::with('user')
             ->latest()
-            ->limit(5)
+            ->limit(3)
             ->get();
 
 
 
         return view('dashboard', compact(
-            'coursesStats',
-            'upcomingPayments',
+            'softwarecourses',
+            'managementecourses',
+            'developementcourses',
+            'othercourses',
+            'totalcourses',
+            'totalexpenses',
+            'softwareExpenses',
+            'managementExpenses',
+            'developmentExpenses',
+            'otherExpenses',
             'recentcoursess',
+
+
         ));
     }
 }
