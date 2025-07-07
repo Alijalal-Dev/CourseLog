@@ -9,8 +9,8 @@
                             <x-layouts.sidebar-link href="{{ route('dashboard') }}" icon='fas-house'
                                 :active="request()->routeIs('dashboard*')">Dashboard</x-layouts.sidebar-link>
 
-                            <x-layouts.sidebar-link href="{{ route('courses.index') }}" icon='fas-house'
-                                :active="request()->routeIs('courses.index*')">courses</x-layouts.sidebar-link>
+                            <x-layouts.sidebar-link href="{{ route('courses.index') }}" icon='fas-book-open'
+                                :active="request()->routeIs('courses.index*')">Courses</x-layouts.sidebar-link>
                         </ul>
                     </nav>
                 </div>

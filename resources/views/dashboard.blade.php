@@ -108,10 +108,10 @@
                     <p class="text-3xl font-bold text-purple-900 dark:text-purple-100 mb-1">{{ $managementecourses }}
                     </p>
                     <div class="flex items-center text-xs text-purple-600 dark:text-purple-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                d="M5 10l7-7m0 0l7 7m-7-7v18" />
                         </svg>
                         <span class="font-medium">{{ __('Leadership Skills') }}</span>
                     </div>
@@ -209,10 +209,6 @@
                     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
                         {{ __('Investment Breakdown') }}</h2>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Distribution by category') }}</p>
-                </div>
-                <div class="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                    <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    {{ __('Live Data') }}
                 </div>
             </div>
             <div class="relative h-64">
@@ -359,7 +355,7 @@
                                     </span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-gray-500 dark:text-gray-400 text-sm">Next payment</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-sm">Date payment</span>
                                     <div
                                         class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
                                         <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor"
@@ -396,30 +392,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        @else
-            <div
-                class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-8 text-center border border-gray-200/50 dark:border-gray-700/50">
-                <div
-                    class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-                    {{ __('Start Your Learning Journey') }}</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                    {{ __('No courses found. Begin tracking your educational investments and build your skills.') }}
-                </p>
-                <a href="{{ route('courses.create') }}"
-                    class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    {{ __('Add Your First Course') }}
-                </a>
             </div>
         @endif
     </div>
