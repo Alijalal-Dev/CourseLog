@@ -40,9 +40,9 @@
                                         class="w-full px-5 py-4 border-2 border-sky-200 rounded-xl shadow-sm focus:ring-3 focus:ring-sky-200 focus:border-sky-700 transition-all duration-300 @error('category') border-red-300 @enderror bg-sky-50 hover:bg-sky-100 text-black">
                                     <option value="">Select a category</option>
                                     <option value="Software" {{ old('category') == 'Software' ? 'selected' : '' }}>Software</option>
-                                    <option value="Hardware" {{ old('category') == 'Hardware' ? 'selected' : '' }}>Hardware</option>
-                                    <option value="Maths" {{ old('category') == 'Maths' ? 'selected' : '' }}> Maths</option>
-                                    <option value="Economy" {{ old('category') == 'Economy' ? 'selected' : '' }}>Economy</option>
+                                    <option value="Development" {{ old('category') == 'Development' ? 'selected' : '' }}>Development</option>
+                                    <option value="Data Science" {{ old('Data Science') == 'Data Science' ? 'selected' : '' }}> Data Science</option>
+                                    <option value="Management" {{ old('category') == 'Management' ? 'selected' : '' }}>Management</option>
                                 </select>
                                 @error('category')
                                     <p class="mt-3 text-sm text-red-600 flex items-center">

@@ -18,10 +18,10 @@
                     </div>
                     <div class="hidden sm:block">
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-                            @if($course->category === 'entertainment') bg-purple-100 text-purple-800
-                            @elseif($course->category === 'utilities') bg-blue-100 text-blue-800
-                            @elseif($course->category === 'software') bg-green-100 text-green-800
-                            @elseif($course->category === 'streaming') bg-red-100 text-red-800
+                            @if($course->category === 'Software') bg-purple-100 text-purple-800
+                            @elseif($course->category === 'Development') bg-blue-100 text-blue-800
+                            @elseif($course->category === 'Data Science') bg-green-100 text-green-800
+                            @elseif($course->category === 'Management') bg-red-100 text-red-800
                             @else bg-gray-100 text-gray-800
                             @endif">
                             {{ ucfirst($course->category) }}
@@ -51,9 +51,9 @@
                                         class="w-full px-5 py-4 border-2 border-sky-200 rounded-xl shadow-sm focus:ring-3 focus:ring-sky-200 focus:border-sky-700 transition-all duration-300 @error('category') border-red-300 @enderror bg-sky-50 hover:bg-sky-100 text-black">
                                     <option value="">Select a category</option>
                                     <option value="Software" {{ old('category', $course->category) == 'Software' ? 'selected' : '' }}>Software</option>
-                                    <option value="Hardware" {{ old('category', $course->category) == 'Hardware' ? 'selected' : '' }}>Hardware</option>
-                                    <option value="Maths" {{ old('category', $course->category) == 'Maths' ? 'selected' : '' }}>Maths</option>
-                                    <option value="Economy" {{ old('category', $course->category) == 'Economy' ? 'selected' : '' }}>Economy</option>
+                                    <option value="Development" {{ old('category', $course->category) == 'Development' ? 'selected' : '' }}>Development</option>
+                                    <option value="Data Science" {{ old('category', $course->category) == 'Data Science' ? 'selected' : '' }}>Data Science</option>
+                                    <option value="Management" {{ old('category', $course->category) == 'Management' ? 'selected' : '' }}>Management</option>
                                 </select>
                                 @error('category')
                                     <p class="mt-3 text-sm text-red-600 flex items-center">

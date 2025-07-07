@@ -17,6 +17,36 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Search Bar Section -->
+            <div class="mt-8">
+                <div class="relative max-w-2xl">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input
+                        type="text"
+                        id="courseSearch"
+                        placeholder="Search courses by name, platform, or category..."
+                        class="w-full pl-10 pr-4 py-3 bg-white/90 backdrop-blur-sm border border-sky-200 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-900 placeholder-gray-500 transition-all duration-200"
+                        onkeyup="searchCourses()"
+                    />
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <button
+                            type="button"
+                            id="clearSearch"
+                            class="text-sky-400 hover:text-sky-600 transition-colors duration-200 hidden"
+                            onclick="clearSearch()"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -39,6 +69,23 @@
                 </div>
             </div>
         @endif
+
+        <!-- Search Results Info -->
+        <div id="searchInfo" class="mb-4 hidden">
+            <div class="bg-sky-50 border border-sky-200 rounded-lg p-3">
+                <div class="flex items-center justify-between">
+                    <p class="text-sky-700 font-medium">
+                        <span id="searchResultsCount">0</span> courses found
+                    </p>
+                    <button
+                        onclick="clearSearch()"
+                        class="text-sky-600 hover:text-sky-800 text-sm font-medium"
+                    >
+                        Clear search
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- courses Grid -->
         @if ($courses->count() > 0)
@@ -71,9 +118,9 @@
                                     Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-white divide-y divide-gray-200" id="courseTableBody">
                             @foreach ($courses as $course)
-                                <tr class="hover:bg-gray-50 transition-colors">
+                                <tr class="hover:bg-gray-50 transition-colors course-row" data-search-content="{{ strtolower($course->name . ' ' . $course->platform . ' ' . $course->category . ' ' . ($course->note ?? '')) }}">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="font-semibold text-gray-900">{{ $course->name }}</div>
                                         @if ($course->note)
@@ -120,6 +167,18 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- No Results Message -->
+                    <div id="noResults" class="hidden p-12 text-center">
+                        <div class="text-gray-400 mb-4">
+                            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">No courses found</h3>
+                        <p class="text-gray-500">Try adjusting your search terms or clear the search to see all courses.</p>
+                    </div>
+
                     <!-- Delete Confirmation Modal -->
                     <div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center  bg-opacity-40">
                         <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center">
@@ -162,7 +221,77 @@
         @endif
     </div>
 </x-layouts.app>
+
 <script>
+    // Search functionality
+    function searchCourses() {
+        const searchInput = document.getElementById('courseSearch');
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const courseRows = document.querySelectorAll('.course-row');
+        const noResults = document.getElementById('noResults');
+        const searchInfo = document.getElementById('searchInfo');
+        const searchResultsCount = document.getElementById('searchResultsCount');
+        const clearButton = document.getElementById('clearSearch');
+
+        let visibleCount = 0;
+
+        // Show/hide clear button
+        if (searchTerm.length > 0) {
+            clearButton.classList.remove('hidden');
+        } else {
+            clearButton.classList.add('hidden');
+        }
+
+        // Filter courses
+        courseRows.forEach(row => {
+            const searchContent = row.getAttribute('data-search-content');
+            if (searchContent.includes(searchTerm)) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Show/hide search info and no results message
+        if (searchTerm.length > 0) {
+            searchInfo.classList.remove('hidden');
+            searchResultsCount.textContent = visibleCount;
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        } else {
+            searchInfo.classList.add('hidden');
+            noResults.classList.add('hidden');
+        }
+    }
+
+    // Clear search
+    function clearSearch() {
+        const searchInput = document.getElementById('courseSearch');
+        const courseRows = document.querySelectorAll('.course-row');
+        const noResults = document.getElementById('noResults');
+        const searchInfo = document.getElementById('searchInfo');
+        const clearButton = document.getElementById('clearSearch');
+
+        searchInput.value = '';
+        clearButton.classList.add('hidden');
+        searchInfo.classList.add('hidden');
+        noResults.classList.add('hidden');
+
+        // Show all courses
+        courseRows.forEach(row => {
+            row.style.display = '';
+        });
+
+        // Focus back on search input
+        searchInput.focus();
+    }
+
+    // Original modal functions
     function openDeleteModal(courseId) {
         const modal = document.getElementById('deleteModal');
         const form = document.getElementById('deleteForm');
@@ -176,4 +305,20 @@
         modal.classList.add('hidden');
         modal.classList.remove('flex');
     }
+
+    // Add keyboard shortcut for search (Ctrl+K or Cmd+K)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            document.getElementById('courseSearch').focus();
+        }
+
+        // Clear search on Escape
+        if (e.key === 'Escape') {
+            const searchInput = document.getElementById('courseSearch');
+            if (searchInput.value.length > 0) {
+                clearSearch();
+            }
+        }
+    });
 </script>

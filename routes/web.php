@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoursesController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingPage');
 })->name('home');
 
 Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
