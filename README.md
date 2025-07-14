@@ -40,5 +40,5 @@ The app’s main goal is to help learners:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/courses-tracker.git
+git clone https://github.com/Alijalal-Dev/courses-tracker.git
 cd courses-tracker
